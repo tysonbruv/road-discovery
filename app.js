@@ -66,10 +66,23 @@ function init() {
   }).addTo(state.map);
 
   state.roadsLayer.addTo(state.map);
-  state.tripLayer.addTo(state.map);
+state.tripLayer.addTo(state.map);
 
-  applySettingsToUi();
-  wireEvents();
+// Fix weird blank tile gaps on first load / mobile browsers
+setTimeout(() => {
+  state.map.invalidateSize(true);
+}, 250);
+
+setTimeout(() => {
+  state.map.invalidateSize(true);
+}, 1000);
+
+window.addEventListener("resize", () => {
+  state.map.invalidateSize(true);
+});
+
+applySettingsToUi();
+wireEvents();
   registerServiceWorker();
   updateStats();
 
